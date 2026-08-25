@@ -21,6 +21,7 @@ def test_with_no_argument():
 )
 def test_with_argument(name: str, expected: str):
     assert get_message(name) == expected
+    assert False == True  # just testing that the status check will fail w/ failing test  # noqa: PLR0133
 
 
 @pytest.mark.parametrize(
