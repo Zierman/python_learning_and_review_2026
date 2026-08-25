@@ -17,3 +17,6 @@ pythonpath = ["src"]
 
 [tool.mypy]
 mypy_path = ["src"]
+
+[tool.pylint.messages_control]
+disable = ["missing-module-docstring"]
