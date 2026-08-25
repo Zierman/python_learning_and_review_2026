@@ -1,8 +1,10 @@
+# pylint: disable=missing-function-docstring
+
 from collections.abc import Callable
 
 import pytest
 
-from loops_and_range import demo_for_with_break_and_else, demo_for_i_in_range
+from loops_and_range import demo_for_i_in_range, demo_for_with_break_and_else
 
 
 @pytest.mark.parametrize(
@@ -25,7 +27,8 @@ from loops_and_range import demo_for_with_break_and_else, demo_for_i_in_range
             lambda number: number % 2 == 0,
             [1, 2, 3, 4],
             2,
-            id="second element returned when is_match returns True for the second and fourth elements in the list",
+            id="second element returned when is_match returns True "
+            "for the second and fourth elements in the list",
         ),
     ],
 )

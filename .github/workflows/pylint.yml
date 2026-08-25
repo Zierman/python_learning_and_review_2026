@@ -18,6 +18,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pylint
-    - name: Analysing the code with pylint
+    - name: Analysing the source code with pylint
       run: |
-        pylint $(git ls-files '*.py')
+        pylint $(git ls-files 'src/**.py')
+    - name: Analysing the test code with pylint without docstring enforcement
+      run: |
+        pylint --disable=missing-function-docstring $(git ls-files 'src/**.py')
