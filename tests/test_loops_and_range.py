@@ -8,6 +8,7 @@ from loops_and_range import (
     demo_for_i_in_range,
     demo_for_i_in_range_of_len,
     demo_for_with_break_and_else,
+    demo_for_with_continue_and_break,
 )
 
 
@@ -54,6 +55,94 @@ def test_demo_for_with_break_and_else(
     is_match: Callable, input_list: list[int] | None, expected: str
 ):
     assert demo_for_with_break_and_else(is_match, input_list) == expected
+
+
+@pytest.mark.parametrize(
+    "break_target, target_sum, input_list, expected",
+    [
+        pytest.param(
+            3,
+            0,
+            [-1, 0, 1, 2, -5, 3, 5],
+            [
+                [-1],
+                [-1, -1],
+                [-1, -1, 0],
+                [],  # this is empty list because the intermediate
+                # sum was greater that the target_sum 0
+                #
+                [-5],  # this is the last item the next item
+                # value is equal to the break_trigger 3
+                #
+            ],
+            id="happy path",
+        ),
+        pytest.param(
+            3,
+            0,
+            [],
+            [],
+            id="if the input_list is empty the output list should be empty",
+        ),
+        pytest.param(
+            9,
+            0,
+            [-1, 0, 1, 2, -5, 3, 5],
+            [
+                [-1],
+                [-1, -1],
+                [-1, -1, 0],
+                [],  # this is empty list because the intermediate
+                # sum was greater that the target_sum 0
+                #
+                [-5],
+                [-5, -2],
+                [],  # this is empty list because the intermediate
+                # sum was greater that the target_sum 0
+            ],
+            id="If the break_trigger is absent the loop won't end until all items are iterated",
+        ),
+        pytest.param(
+            3,
+            99,
+            [-1, 0, 1, 2, -5, 3, 5],
+            [
+                [-1],
+                [-1, -1],
+                [-1, -1, 0],
+                [-1, -1, 0, 2],
+                [-1, -1, 0, 2, -3],  # this is the last item the next item
+                # value is equal to the break_trigger 3
+                #
+            ],
+            id="If the trigger_sum is larger than any possible sum all elements "
+            "will be included until break",
+        ),
+        pytest.param(
+            3,
+            -99,
+            [-1, 0, 1, 2, -5, 3, 5],
+            [
+                [],
+                [],
+                [],
+                [],
+                [],  # this is the last item the next item
+                # value is equal to the break_trigger 3
+                #
+            ],
+            id="If the trigger_sum is smaller than any possible sum all items in "
+            "returned list will be empty lists",
+        ),
+    ],
+)
+def test_demo_for_with_continue_and_break(
+    break_target: int, target_sum: int, input_list: list[int], expected: str
+):
+    assert (
+        demo_for_with_continue_and_break(break_target, target_sum, input_list)
+        == expected
+    )
 
 
 @pytest.mark.parametrize(

@@ -39,6 +39,48 @@ def demo_for_i_in_range_of_len[T](
     return output_list
 
 
+def demo_for_with_continue_and_break(
+    break_target: int, target_sum: int, input_list: list[int]
+) -> list[list[int|None]]:
+    """Demonstrate break and continue behavior within a for loop.
+
+    Args:
+        break_target: the value at which the whole loop will break
+        target_sum: the target that the
+        input_list: the list that will be iterated.
+    Returns:
+        A list of intermediate sums accumulated before the loop exits.
+    """
+    intermediate_list: list[int] = []
+    output_list: list[list[int]] = []
+    intermediate_sum = 0
+
+    for i in input_list:
+        intermediate_sum += i
+        if i == break_target:
+            # We break out the loop rather than continue to the next loop iteration
+            break
+
+        intermediate_list.append(intermediate_sum)
+
+        if intermediate_sum > target_sum:
+            # Reset intermediate values
+            intermediate_list.clear()
+            intermediate_sum = 0
+
+            # Add empty list to output_list for this loop
+            output_list.append([])
+
+            # Continue to the next iteration of the loop w/o executing
+            # any following commands in the loop
+            continue
+
+        output_list.append(
+            intermediate_list.copy()  # This needs to stor a copy so it doesn't mutate
+        )  # Note that this will not execute if continue or break execute
+    return output_list
+
+
 def demo_for_with_break_and_else(
     is_match: Callable[[int], bool], input_list: list[int] | None = None
 ) -> int | None:
