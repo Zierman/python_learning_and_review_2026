@@ -1,12 +1,12 @@
 from collections.abc import Callable
 
-DEFAULT_ARRAY = range(5)
+DEFAULT_LIST = range(5)
 
 
 def demo_for_i_in_range():
     """Demo for a simple for look using range function
 
-    Returns: an array created by appending each item when looping through the range(5, 10, 2)"""
+    Returns: a list created by appending each item when looping through the range(5, 10, 2)"""
     arr = []
 
     for i in range(5, 10, 2):
@@ -16,6 +16,27 @@ def demo_for_i_in_range():
         # a for loop and the range function.
 
     return arr
+
+
+def demo_for_i_in_range_of_len[T](
+    is_match: Callable[[T], bool], input_list: list[T]
+) -> list[int]:
+    """
+
+    Args:
+      is_match: a callable that returns a boolean if the provided argument is a match
+      input_list: a list of items to find matches in
+
+    Returns: a list of indexes for all matches in the input_list based on the is_match function"""
+
+    output_list: list[int] = []
+
+    # I'm not using enumerate here because this is what is in the tutorial for the for loop
+    for i in range(len(input_list)):  # pylint: disable=consider-using-enumerate
+        if is_match(input_list[i]):
+            output_list.append(i)
+
+    return output_list
 
 
 def demo_for_with_break_and_else(
@@ -37,7 +58,7 @@ def demo_for_with_break_and_else(
     return_value: int = 0
 
     if input_list is None:
-        input_list = list(DEFAULT_ARRAY)
+        input_list = list(DEFAULT_LIST)
 
     for item in input_list:
         if is_match(item):
