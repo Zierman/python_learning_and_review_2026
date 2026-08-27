@@ -1,0 +1,15 @@
+repos:
+  - repo: local
+    hooks:
+      - id: pylint-wrapper
+        name: Run pylint wrapper
+        entry: ./src/.tools/pylint.py
+        language: python
+        pass_filenames: false
+        stages: [pre-commit, pre-push]
+      - id: tests
+        name: Run tests
+        entry: pytest
+        language: python
+        pass_filenames: false
+        stages: [pre-commit, pre-push]

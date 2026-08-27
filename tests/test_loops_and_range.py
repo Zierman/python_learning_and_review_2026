@@ -25,7 +25,8 @@ from loops_and_range import (
             lambda _: True,
             None,
             0,
-            id="Expected first element returned when is_match always returns True and default list is used",
+            id="Expected first element returned when is_match "
+            "always returns True and default list is used",
         ),
         pytest.param(
             lambda _: False,
@@ -58,7 +59,12 @@ def test_demo_for_with_break_and_else(
 @pytest.mark.parametrize(
     "is_match, input_list, expected",
     [
-        pytest.param(lambda _: True, [], [], id="An empty list should be returned when an empty list is provided"),
+        pytest.param(
+            lambda _: True,
+            [],
+            [],
+            id="An empty list should be returned when an empty list is provided",
+        ),
         pytest.param(
             lambda _: True,
             [1, 3],
@@ -75,7 +81,8 @@ def test_demo_for_with_break_and_else(
             lambda number: number % 2 == 0,
             [1, 2, 3, 4],
             [1, 3],
-            id="Only index values 1 and 3 are in the returned list when is_match returns True "
+            id="Only index values 1 and 3 are in the returned list when "
+            "is_match returns True "
             "for the second and fourth elements in the list",
         ),
     ],
