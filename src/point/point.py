@@ -28,3 +28,44 @@ class Point[T: int | float]:
         d_z = abs(self.z - other_point.z)
 
         return math.sqrt(d_x**2 + d_y**2 + d_z**2)
+
+    def clone(self) -> "Point":
+        """Return a shallow copy of this Point."""
+
+        return Point(self.x, self.y, self.z)
+
+    def __str__(self) -> str:
+        return f"({self.x}, {self.y}, {self.z})"
+
+    def __repr__(self) -> str:
+        return str(self)
+
+    def __add__(self, other: "Point") -> "Point":
+        return Point(self.x + other.x, self.y + other.y, self.z + other.z)
+
+    def __iadd__(self, other: "Point"):
+        self.x += other.x
+        self.y += other.y
+        self.z += other.z
+
+        return self
+
+    def __mul__(self, other):
+        return Point(self.x * other, self.y * other, self.z * other)
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
+
+    def __imul__(self, other):
+        self.x *= other
+        self.y *= other
+        self.z *= other
+
+        return self
+
+    def __eq__(self, other: object) -> bool:
+        if self is other:
+            return True
+        if not isinstance(other, Point):
+            return False
+        return self.x == other.x and self.y == other.y and self.z == other.z
