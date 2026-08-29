@@ -1,6 +1,7 @@
 from collections.abc import Callable
+from typing import Final
 
-DEFAULT_LIST = range(5)
+DEFAULT_LIST: Final[range] = range(5)  # using Final typing to explicitly type a constant
 
 
 def demo_for_i_in_range():

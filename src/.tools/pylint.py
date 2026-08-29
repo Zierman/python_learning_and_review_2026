@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import subprocess
+import sys
 
 
 def lint() -> int:
@@ -21,7 +22,10 @@ def lint() -> int:
         return 0
 
     result = subprocess.run(
-        ["pylint", *files], capture_output=True, text=True, check=False
+        [sys.executable, "-m", "pylint", *files],
+        capture_output=True,
+        text=True,
+        check=False,
     )
 
     print("Exit code:", result.returncode)
