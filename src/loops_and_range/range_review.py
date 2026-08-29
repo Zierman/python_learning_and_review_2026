@@ -41,7 +41,7 @@ def demo_for_i_in_range_of_len[T](
 
 def demo_for_with_continue_and_break(
     break_target: int, target_sum: int, input_list: list[int]
-) -> list[list[int|None]]:
+) -> list[list[int]]:
     """Demonstrate break and continue behavior within a for loop.
 
     Args:
