@@ -1,4 +1,5 @@
 import math
+from typing import cast, overload
 
 
 # pylint: disable=too-few-public-methods
@@ -12,14 +13,42 @@ class Point[T: int | float]:
     I'm intentionally using generics here and avoiding using complex or imaginary numbers.
     """
 
-    def __init__(self, x: T, y: T, z: T | None = None) -> None:
+    @overload
+    def __init__(self: "Point[int]", x: int, y: int, z: int | None = None) -> None: ...
 
-        self.x = x
-        self.y = y
-        self.z = z if z is not None else 0.0 if self._is_float_type() else 0
+    @overload
+    def __init__(
+        self: "Point[float]", x: float, y: float, z: float | None = None
+    ) -> None: ...
+
+    @overload
+    def __init__(self, x: T, y: T, z: T | None = None) -> None: ...
+
+    def __init__(self, x, y, z = None) -> None:
+
+        self.x = cast(T, x)
+        self.y = cast(T, y)
+        if z is not None:
+            self.z: T = cast(T, z)
+        elif self._is_float_type():
+            self.z = cast(T, 0.0)
+        else:
+            self.z = cast(T, 0)
 
     def _is_float_type(self) -> bool:
         return isinstance(self.x, float)
+
+    @property
+    def coordinate_2d(self) -> tuple[T, T]:
+        """Return the (x, y) coordinate pair for this point as a tuple."""
+
+        return (self.x, self.y)
+
+    @property
+    def coordinate_3d(self) -> tuple[T, T, T]:
+        """Return the (x, y, z) coordinate pair for this point as a tuple."""
+
+        return (self.x, self.y, self.z)
 
     def distance_to(self, other_point: "Point") -> float:
         """calculates the distance between this point and another point"""
